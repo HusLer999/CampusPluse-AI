@@ -1,0 +1,148 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
+  password      String?        
+  university    String?        @default("State University")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  courses       Course[]
+  tasks         Task[]
+  studyBlocks   StudyBlock[]
+  transitPosts  TransitPost[]
+  transitVotes  TransitVote[]
+  listings      Listing[]
+  messages      Message[]      @relation("SentMessages")
+  receivedMsgs  Message[]      @relation("ReceivedMessages")
+}
+
+model Course {
+  id           String       @id @default(cuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  code         String
+  instructor   String?
+  meetingTimes String?      
+  semester     String?
+  createdAt    DateTime     @default(now())
+  tasks        Task[]
+  studyBlocks  StudyBlock[]
+
+  @@index([userId])
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String?
+  course      Course?      @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  title       String
+  description String?
+  dueDate     DateTime?
+  weight      Float?       @default(0.0) 
+  status      String       @default("TODO") 
+  priority    String       @default("MEDIUM") 
+  estimateMin Int?         @default(60) 
+  isMilestone Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([userId])
+  @@index([dueDate])
+  @@index([status])
+}
+
+model StudyBlock {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String?
+  course    Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  title     String
+  startTime DateTime
+  endTime   DateTime
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([startTime])
+}
+
+model TransitPost {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String         
+  routeTag    String         
+  title       String
+  details     String
+  upvotes     Int            @default(0)
+  expiresAt   DateTime
+  createdAt   DateTime       @default(now())
+  votes       TransitVote[]
+
+  @@index([routeTag])
+  @@index([createdAt])
+  @@index([expiresAt])
+}
+
+model TransitVote {
+  id      String      @id @default(cuid())
+  postId  String
+  post    TransitPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId  String
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isUp    Boolean     
+
+  @@unique([postId, userId])
+}
+
+model Listing {
+  id          String          @id @default(cuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  price       Float
+  category    String          
+  condition   String          
+  location    String          
+  status      String          @default("ACTIVE") 
+  images      ListingImage[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([category])
+  @@index([status])
+  @@index([price])
+}
+
+model ListingImage {
+  id        String   @id @default(cuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  url       String
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  content    String
+  createdAt  DateTime @default(now())
+
+  @@index([senderId, receiverId])
+}

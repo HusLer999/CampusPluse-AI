@@ -1,0 +1,21 @@
+Course: Advanced Web Development (CS 350)
+Instructor: Prof. Sarah Jenkins
+Semester: Fall 2026
+Meeting Times: Mondays & Wednesdays, 1:00 PM - 2:30 PM
+
+Course Description:
+Covers modern full-stack web engineering using Next.js, TypeScript, Tailwind CSS, and serverless architectures.
+
+Grading Breakdown:
+- Homework Assignments (4 total): 30%
+- Midterm Project Demo: 30%
+- Final Capstone Project: 40%
+
+Schedule & Deliverables:
+- Week 1: Introduction to Next.js App Router & Server Components
+- Week 2: TypeScript Deep Dive & Zod Validation (HW 1 Assigned, due Week 3)
+- Week 4: Database Integration with Prisma & SQLite (HW 2 Assigned, due Week 5)
+- Week 6: MIDTERM PROJECT DEMO (Weight: 30%)
+- Week 8: AI Integration with Google Gemini API (HW 3 Assigned, due Week 9)
+- Week 11: Deployment, Vercel, and Performance Optimization (HW 4 Assigned, due Week 12)
+- Week 15: FINAL CAPSTONE PROJECT PRESENTATIONS (Weight: 40%)

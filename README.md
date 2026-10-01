@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ -->
+
+ # CampusPulse AI 🚀
+
+CampusPulse AI is a responsive, all-in-one university student companion that combines academic productivity with campus logistics. Powered by **Next.js (App Router)**, **Prisma**, **Tailwind CSS**, and **Google Gemini API ("gemini-2.5-flash")**.
+
+## Features Included
+1. **AI Syllabus & Timetable Parser:** Upload or paste syllabi; Gemini automatically extracts courses, instructor details, meeting times, assignments, grade weights, and weekly topics with strict Zod validation and a smart Re-plan engine.
+2. **Local Campus & Transport Board:** Crowdsourced transit delays, road closures, and shuttle wait times with upvotes, "still accurate?" verification votes, and an instant AI transit briefing.
+3. **Student Marketplace:** Buy and sell books, electronics, or housing subleases with category filters, image attachments, and an AI Listing Generator helper.
+4. **Secure Authentication & SQLite DB:** Fast setup with NextAuth credentials and local Prisma database support.
+
+---
+
+## Getting Started Locally
+
+### 1. Clone & Install Dependencies
+```bash
+git clone [https://github.com/your-username/campus-pulse-ai.git](https://github.com/your-username/campus-pulse-ai.git)
+cd campus-pulse-ai
+npm install --legacy-peer-deps
